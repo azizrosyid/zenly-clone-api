@@ -7,9 +7,10 @@
 var app = require('../app');
 var debug = require('debug')('gps-api:server');
 var http = require('http');
+const socketApi = require('../mysocket');
 
 var server = http.createServer(app);
-socketAPI.io.attach(server);
+socketApi.io.attach(server);
 
 
 /**
