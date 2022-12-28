@@ -8,6 +8,10 @@ var app = require('../app');
 var debug = require('debug')('gps-api:server');
 var http = require('http');
 
+var server = http.createServer(app);
+socketAPI.io.attach(server);
+
+
 /**
  * Get port from environment and store in Express.
  */
