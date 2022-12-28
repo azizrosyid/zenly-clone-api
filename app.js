@@ -89,14 +89,19 @@ async function getAddress(coordinates) {
 
   // If not, make a request to the API
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${key}`;
-  const address = await axios.post(url).then((res) => {
-    return res.data.results[0].formatted_address;
-  });
 
-  // Add the address to the cache
-  cache[cacheKey] = address;
+  try {
+    const address = await axios.post(url).then((res) => {
+      return res.data.results[0].formatted_address;
+    });
 
-  return address;
+    // Add the address to the cache
+    cache[cacheKey] = address;
+
+    return address;
+  } catch (e) {
+    return await getAddress(coordinates);
+  }
 }
 
 const savedToDatabase = [];
